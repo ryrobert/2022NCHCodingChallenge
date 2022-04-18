@@ -10,10 +10,7 @@ library(tidyverse)
 library(ggplot2)
 library(hrbrthemes)
 library(showtext)
-<<<<<<< HEAD
-=======
 library(cowplot)
->>>>>>> 17398d5316c46c07c81ba334463f25a75d7a2dbb
 library(ggsci)
 
 font_add("Arial Narrow", "ARIALN.TTF", bold = "ARIALNB.TTF")
@@ -214,14 +211,14 @@ ls -l
 12.  Which command lets you delete a file?
 
 ```{bash}
-cat > file.txt
+touch file.txt
 rm file.txt
 ```
 
 13.  Which command copies a file?
 
 ```{bash}
-cat > file_orig.txt
+touch file_orig.txt
 cp file_orig.txt file_copy.txt
 ```
 
@@ -397,19 +394,11 @@ for i in {1..10}
 31.  For your submission, put your results up into a public GitHub repository
 and provide the link
 
-<<<<<<< HEAD
 https://github.com/ryrobert/2022NCHCodingChallenge
 
 32.  Make sure your repo includes at least two branches and two commits
 
 Done
-=======
-Done.
-
-32.  Make sure your repo includes at least two branches and two commits
-
-And done.
->>>>>>> 17398d5316c46c07c81ba334463f25a75d7a2dbb
 
 ------------------------------------------------------------------------
 
@@ -447,8 +436,10 @@ ggdraw(p1)
 34.  Using the command line, download the SRR10197556 dataset from the NCBI SRA
 repository
 
-```{r}
-
+```{bash}
+ml load SRA-Toolkit/2.10.8
+prefetch SRR10197556
+fasterq-dump SRR10197556
 ```
 
 ## Bash variable expansion
@@ -459,10 +450,22 @@ then share code to trim off the path ("path/to/target/")
 36.  Create a variable in bash containing the text "path/to/target/file.txt" and
 then share code to trim off the file extension (".txt")
 
+```{bash}
+long="path/to/target/file.txt"
+fname="${long##*/}"
+echo "Answer to 35: ${fname}"
+noext=${fname%.*}
+echo "Answer to 36: ${noext}"
+```
+
 ## Grep
 
 37.  Use the Unix grep function to match the pattern "GATACA" in `/gpfs0/scratch/mvc002/infoChallenge_1.fastq.gz` on the Franklin cluster. How
 many lines had a match?
+
+```{bash}
+zgrep -c "GATACA" /gpfs0/scratch/mvc002/infoChallenge_1.fastq.gz
+```
 
 ## Write a program
 
@@ -479,11 +482,20 @@ test your code.
 
 39.  How many times does sequence "GATTACA" appear in this fasta file? `/reference/homo_sapiens/hg38/ucsc_assembly/illumina_download/Sequence/WholeGenomeFasta/genome.fa`
 
+```{bash}
+grep -o "GATTACA" /reference/homo_sapiens/hg38/ucsc_assembly/illumina_download/Sequence/WholeGenomeFasta/genome.fa | grep -c ""
+```
+
 ## Using awk
 
 40.  Use this gtf file (`/reference/homo_sapiens/hg38/ucsc_assembly/illumina_download/Annotation/Genes/genes.gtf`)
 and the Unix `awk` command to keep only the lines where first column is "chr11"
 and the fourth column is greater than 100,000. How many lines are in the output?
+
+```{bash}
+awk '$1 == "chr11"' /reference/homo_sapiens/hg38/ucsc_assembly/illumina_download/Annotation/Genes/genes.gtf | \ 
+  awk '$4 > 100000' | > ans40.gtf
+```
 
 ------------------------------------------------------------------------
 
@@ -498,6 +510,8 @@ folder are two files:
   What kind of sequencing experiment are these data derived from?
 
 42.  What species do these reads come from?
+
+No idea, but it's not human!
 
 ## Harder programming
 

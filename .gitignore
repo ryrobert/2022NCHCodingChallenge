@@ -37,3 +37,14 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+# SRA downloads
+*.fastq*
+*.sra
+/SRR*/
+
+# .gtf files
+*.gtf
+
+# Rmd knitting files
+/informatics_*/
