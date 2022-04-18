@@ -10,6 +10,10 @@ library(tidyverse)
 library(ggplot2)
 library(hrbrthemes)
 library(showtext)
+<<<<<<< HEAD
+=======
+library(cowplot)
+>>>>>>> 17398d5316c46c07c81ba334463f25a75d7a2dbb
 library(ggsci)
 
 font_add("Arial Narrow", "ARIALN.TTF", bold = "ARIALNB.TTF")
@@ -393,11 +397,19 @@ for i in {1..10}
 31.  For your submission, put your results up into a public GitHub repository
 and provide the link
 
+<<<<<<< HEAD
 https://github.com/ryrobert/2022NCHCodingChallenge
 
 32.  Make sure your repo includes at least two branches and two commits
 
 Done
+=======
+Done.
+
+32.  Make sure your repo includes at least two branches and two commits
+
+And done.
+>>>>>>> 17398d5316c46c07c81ba334463f25a75d7a2dbb
 
 ------------------------------------------------------------------------
 
@@ -413,10 +425,31 @@ should align.
 
 https://nationwidechildrens-my.sharepoint.com/:i:/g/personal/matthew_cannon_nationwidechildrens_org/Ef7xSrUpIoJMsl2ua-KezHkBArzTwEkqwMNjLnZ8vMaZFQ?e=9kLFHD 
 
+```{r}
+dx <- axis_canvas(p, axis = "x") +
+  geom_density(data = mtcars, 
+    aes(x = disp, fill = as.factor(cyl)), color = "gray50", alpha = 0.75) +
+  scale_fill_jco()
+
+dy <- axis_canvas(p, axis = "y", coord_flip = T) +
+  geom_density(data = mtcars,
+    aes(x = mpg, fill = as.factor(cyl)), color = "gray50", alpha = 0.6) +
+  coord_flip() +
+  scale_fill_jco()
+
+p1 <- insert_xaxis_grob(p, dx, position = "top")
+p1 <- insert_yaxis_grob(p1, dy, position = "right")
+ggdraw(p1)
+```
+
 ## Get sequences from SRA
 
 34.  Using the command line, download the SRR10197556 dataset from the NCBI SRA
 repository
+
+```{r}
+
+```
 
 ## Bash variable expansion
 
