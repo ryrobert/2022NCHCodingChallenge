@@ -5,6 +5,7 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(dev.args = list(png = list(type = "cairo")))
 
 library(tidyverse)
 library(ggplot2)
@@ -436,7 +437,7 @@ ggdraw(p1)
 34.  Using the command line, download the SRR10197556 dataset from the NCBI SRA
 repository
 
-```{bash}
+```{bash, eval=F}
 ml load SRA-Toolkit/2.10.8
 prefetch SRR10197556
 fasterq-dump SRR10197556
@@ -492,9 +493,9 @@ grep -o "GATTACA" /reference/homo_sapiens/hg38/ucsc_assembly/illumina_download/S
 and the Unix `awk` command to keep only the lines where first column is "chr11"
 and the fourth column is greater than 100,000. How many lines are in the output?
 
-```{bash}
-# awk '$1 == "chr11"' /reference/homo_sapiens/hg38/ucsc_assembly/illumina_download/Annotation/Genes/genes.gtf | \ 
-#   awk '$4 > 100000' | grep -c ""
+```{bash, eval=F}
+awk '$1 == "chr11"' /reference/homo_sapiens/hg38/ucsc_assembly/illumina_download/Annotation/Genes/genes.gtf | \ 
+  awk '$4 > 100000' | grep -c ""
 ```
 
 This is the command. I can't get rmarkdown to pass it correctly to bash, and can't figure out the right
