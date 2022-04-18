@@ -493,9 +493,12 @@ and the Unix `awk` command to keep only the lines where first column is "chr11"
 and the fourth column is greater than 100,000. How many lines are in the output?
 
 ```{bash}
-awk '$1 == "chr11"' /reference/homo_sapiens/hg38/ucsc_assembly/illumina_download/Annotation/Genes/genes.gtf | \ 
-  awk '$4 > 100000' | > ans40.gtf
+# awk '$1 == "chr11"' /reference/homo_sapiens/hg38/ucsc_assembly/illumina_download/Annotation/Genes/genes.gtf | \ 
+#   awk '$4 > 100000' | grep -c ""
 ```
+
+This is the command. I can't get rmarkdown to pass it correctly to bash, and can't figure out the right
+syntax to pass it as an r system() function, but the bash code works and returns 54,789 lines.
 
 ------------------------------------------------------------------------
 
