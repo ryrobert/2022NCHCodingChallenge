@@ -436,6 +436,10 @@ ggdraw(p1)
 34.  Using the command line, download the SRR10197556 dataset from the NCBI SRA
 repository
 
+```{r}
+
+```
+
 ## Bash variable expansion
 
 35.  Create a variable in bash containing the text "path/to/target/file.txt" and
