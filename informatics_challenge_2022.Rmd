@@ -10,6 +10,7 @@ library(tidyverse)
 library(ggplot2)
 library(hrbrthemes)
 library(showtext)
+library(ggsci)
 
 font_add("Arial Narrow", "ARIALN.TTF", bold = "ARIALNB.TTF")
 showtext_auto()
@@ -140,7 +141,7 @@ ggplot(mtcars, aes(disp, mpg)) +
 
 ```{r}
 ggplot(mtcars, aes(as.factor(cyl), hp, fill = as.factor(cyl))) +
-  geom_boxplot(size = 1) +
+  geom_boxplot() +
   labs(
     title = "Power by Configuration",
     subtitle = "Want a hot rod? Get a V8",
@@ -392,7 +393,11 @@ for i in {1..10}
 31.  For your submission, put your results up into a public GitHub repository
 and provide the link
 
+https://github.com/ryrobert/2022NCHCodingChallenge
+
 32.  Make sure your repo includes at least two branches and two commits
+
+Done
 
 ------------------------------------------------------------------------
 
