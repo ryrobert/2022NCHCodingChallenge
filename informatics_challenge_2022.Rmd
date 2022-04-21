@@ -1,15 +1,20 @@
 ---
 title: "Informatics Challenge! 2022"
-output: pdf_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(dev.args = list(png = list(type = "cairo")))
+knitr::opts_chunk$set(
+  echo=TRUE, 
+  dev="svg", 
+  fig.width=4, 
+  fig.height=4,
+  fig.asp=NULL
+)
 
 library(tidyverse)
 library(ggplot2)
-library(hrbrthemes)
+library(ggpubr)
 library(showtext)
 library(cowplot)
 library(ggsci)
@@ -17,7 +22,7 @@ library(ggsci)
 font_add("Arial Narrow", "ARIALN.TTF", bold = "ARIALNB.TTF")
 showtext_auto()
 
-theme_set(theme_ipsum())
+theme_set(theme_pubr())
 ```
 
 # How the informatics challenge will work
@@ -130,7 +135,7 @@ If you want to use a language other than R, the data can be downloaded here: htt
 
 ```{r}
 ggplot(mtcars, aes(disp, mpg)) +
-  geom_point(size = 3) +
+  geom_point() +
   labs(
     title = "Displacement vs Efficiency",
     subtitle = "Bigger engines suck more gas",
@@ -141,13 +146,13 @@ ggplot(mtcars, aes(disp, mpg)) +
 
 7.  Using the mtcars data again, make a boxplot of hp separated by cyl
 
-```{r}
+```{r, fig.width=3.5}
 ggplot(mtcars, aes(as.factor(cyl), hp, fill = as.factor(cyl))) +
   geom_boxplot() +
   labs(
     title = "Power by Configuration",
     subtitle = "Want a hot rod? Get a V8",
-    x = "Configuration (number of cylinders)",
+    x = "Configuration (no. of cylinders)",
     y = "Power Output (hp)"
   )+
   scale_fill_jco() +
@@ -157,7 +162,7 @@ ggplot(mtcars, aes(as.factor(cyl), hp, fill = as.factor(cyl))) +
 8.  Using the mtcars data again, make a barplot of displacement (disp) for each
 engine shape (column "vs")
 
-```{r}
+```{r, fig.width=3}
 mtcars_summary <- mtcars %>%
   group_by(vs) %>%
   summarise(
@@ -167,17 +172,16 @@ mtcars_summary <- mtcars %>%
 mtcars_summary$vs <- c("V Shape", "Other Shape")
 
 ggplot(mtcars_summary, aes(as.factor(vs), disp, fill = vs)) +
-  geom_bar(stat = "identity") +
+  geom_bar(stat = "identity", color = "gray20") +
   geom_errorbar(aes(
     ymin = disp - sd,
     ymax = disp + sd),
     width = 0.2,
-    size = 1,
     color = "gray20"
   ) +
   labs(
-    title = "Piston Arrangments and Volume",
-    subtitle = "Manufacturers of big cars like V-shaped engines",
+    title = "Piston Arrangments",
+    subtitle = "Big cars like V-shaped engines",
     x = "Cylinder Arrangement",
     y = "Engine Displacement (ml)"
   ) +
@@ -314,7 +318,7 @@ cyl. Include a title. Be sure the colors used are color-blind friendly.
 
 ```{r}
 p <- ggplot(mtcars, aes(disp, mpg, color = as.factor(cyl))) +
-  geom_point(size = 3) +
+  geom_point() +
   labs(
     title = "Efficiency by Volume",
     subtitle = "Bigger cars suck more gas",
@@ -410,10 +414,6 @@ Done
 33.  Add histograms to the top and right side of the mtcars mpg vs disp
 scatterplot so that it looks like Figure 1. Note that the axes of each plot
 should align.
-
-![example plot]("C:\Users\mvc002\OneDrive - Nationwide Children's Hospital\Education\informatics_challenge\informatics_challenge_2022\exampleTriPlot.png")
-
-https://nationwidechildrens-my.sharepoint.com/:i:/g/personal/matthew_cannon_nationwidechildrens_org/Ef7xSrUpIoJMsl2ua-KezHkBArzTwEkqwMNjLnZ8vMaZFQ?e=9kLFHD 
 
 ```{r}
 dx <- axis_canvas(p, axis = "x") +
