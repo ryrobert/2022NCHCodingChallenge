@@ -273,6 +273,9 @@ GCAATCGCTCTTGCCGTGCGAGATGCTAGCAA
 ```
 
 .fastq, .fq
+#MVC###########################################################################
+# This is actually a fasta, in this format there aren't quality scores
+# https://support.illumina.com/bulletins/2016/04/fastq-files-explained.html
 
 20.  What file/data format is this?
 
@@ -288,6 +291,11 @@ F#FFFFFFFF,FFFFFFFFFFFFFFFFF:
 ```
 
 .sam (or extracted .bam)
+#MVC######################################################################
+# This is fastq format. The sam format has one line per sequence with
+# additional fields to hold the mapping location/quality and other data
+# https://samtools.github.io/hts-specs/SAMv1.pdf
+
 
 21.  What file/data format is this?
 
@@ -302,6 +310,9 @@ chr3  127477031  127478198
 
 It's a chromosomal location file identifying locations within a particular reference
 (some kind of an alignment).
+#MVC#########################################################################
+# Sortof, this is the bed format, defined as chromosome, start and stop. It
+# can also have additional optional fields to hold different types of data
 
 22.  What are the two main differences between a bam and sam file?
 
@@ -414,6 +425,9 @@ Done
 33.  Add histograms to the top and right side of the mtcars mpg vs disp
 scatterplot so that it looks like Figure 1. Note that the axes of each plot
 should align.
+#MVC########################################################################
+# So *technically* you did density plots and not histograms. I'm not a big
+# fan of density plots in general since they tend to over-smooth the data
 
 ```{r}
 dx <- axis_canvas(p, axis = "x") +
@@ -486,6 +500,11 @@ test your code.
 ```{bash}
 grep -o "GATTACA" /reference/homo_sapiens/hg38/ucsc_assembly/illumina_download/Sequence/WholeGenomeFasta/genome.fa | grep -c ""
 ```
+#MVC###########################################################################
+# Close, but this counts the number of lines that have at least one match, but
+# doesn't count multiple matches per line. This approach will also miss any matches
+# that occur where the sequence is wrapped to the next line and so the pattern
+# is split across multiple lines of a single fasta entry
 
 ## Using awk
 
@@ -500,7 +519,13 @@ awk '$1 == "chr11"' /reference/homo_sapiens/hg38/ucsc_assembly/illumina_download
 
 This is the command. I can't get rmarkdown to pass it correctly to bash, and can't figure out the right
 syntax to pass it as an r system() function, but the bash code works and returns 54,789 lines.
-
+#MVC#################################################################################
+# Odd, that should work. Your answer is right, but just FYI, you can also combine things like this:
+```{bash}
+  awk '$1 == "chr11" && $4 >= 100000 {print $_}' \
+    /reference/homo_sapiens/hg38/ucsc_assembly/illumina_download/Annotation/Genes/genes.gtf \
+    | wc -l
+```
 ------------------------------------------------------------------------
 
 # I hate myself - 5 point per question
